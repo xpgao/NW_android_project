@@ -47,7 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void openDialog(int radioID){
         ExampleDialog exampleDialog = new ExampleDialog();
-        exampleDialog.setID(radioID);
+        if(radioButton.getText().equals("Mental health")){
+            exampleDialog.setID(0);
+        }
+        else if(radioButton.getText().equals("Addiction")){
+            exampleDialog.setID(1);
+        }
+        else if(radioButton.getText().equals("Both")){
+            exampleDialog.setID(2);
+        }
+
         exampleDialog.show(getSupportFragmentManager(), "Example Dialog");
     }
 
