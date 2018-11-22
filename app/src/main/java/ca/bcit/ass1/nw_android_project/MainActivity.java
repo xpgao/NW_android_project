@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        //getLocation();
 
         radioGroup = findViewById(R.id.radioGroup);
+
+        double currentLatti = getLatti();
+        double currentLongi = getLongi();
     }
 
     public void checkButton(View v){
@@ -70,38 +72,50 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public double getLatti(){
+        double latti = 0;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
+                )!= PackageManager.PERMISSION_GRANTED) {
 
-//CODE FOR GETTING LONG LATI
-//    void getLocation(){
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-//                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
-//                )!= PackageManager.PERMISSION_GRANTED) {
-//
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-//        }else{
-//            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//            if(location != null){
-//                double latti = location.getLatitude();
-//                double longi = location.getLongitude();
-//
-//                ((EditText) findViewById(R.id.lati)).setText("Latitude: " + latti);
-//                ((EditText) findViewById(R.id.longi)).setText("Longitude: " + longi);
-//            }else{
-//                ((EditText) findViewById(R.id.lati)).setText("Could not find Latitude");
-//                ((EditText) findViewById(R.id.longi)).setText("Could not find Longitude");
-//            }
-//        }
-//    }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }else{
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location != null){
+                latti = location.getLatitude();
+                //double latti = location.getLongitude();
+            }
+        }
+        return latti;
+    }
 
-//CODE FOR GETTING LONG LATI
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        switch (requestCode){
-//            case REQUEST_LOCATION:
-//                getLocation();
-//                break;
-//        }
-//    }
+    public double getLongi(){
+        double longi = 0;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
+        )!= PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }else{
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location != null){
+                longi = location.getLatitude();
+                //double longi = location.getLongitude();
+            }
+        }
+        return longi;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case REQUEST_LOCATION:
+                getLatti();
+                getLongi();
+                break;
+        }
+    }
 }

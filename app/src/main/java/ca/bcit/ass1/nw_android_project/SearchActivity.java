@@ -1,5 +1,7 @@
 package ca.bcit.ass1.nw_android_project;
 
+import android.app.Activity;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.ProgressDialog;
@@ -12,8 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchActivity extends AppCompatActivity {
+
+
     static public String name;
     static public String category;
     static public double latitude;
@@ -42,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         public Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            SERVICE_URL = "https://api.myjson.com/bins/o59s6";
+            SERVICE_URL = "https://api.myjson.com/bins/b86q6";
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(SERVICE_URL);
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -51,22 +59,48 @@ public class SearchActivity extends AppCompatActivity {
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     // Getting JSON Array node
                     JSONArray toonJsonArray = jsonObj.getJSONArray("services");
-
+                    String sessionCategory = getIntent().getStringExtra("category");
+                    TreeMap<Double, Root> myMap = new TreeMap<>();
                     for(int i = 0; i < toonJsonArray.length(); i++){
                         JSONObject obj = toonJsonArray.getJSONObject(i);
-                        name = obj.getString("name");
-                        category = obj.getString("category");
-                        latitude = obj.getDouble("latitude");
-                        longitude = obj.getDouble("longitude");
+                        if(sessionCategory.compareTo(obj.getString("category")) == 0) {
+                            name = obj.getString("name");
+                            category = obj.getString("category");
+                            latitude = obj.getDouble("latitude");
+                            longitude = obj.getDouble("longitude");
 
-                        Root toon = new  Root();
-                        // adding each child node to HashMap key => value
-                        toon.setName(name);
-                        toon.setCategory(category);
-                        toon.setLatitude(latitude);
-                        toon.setLongitude(longitude);
-                        // adding contact to contact list
-                        service_details.add(toon);
+                            Root toon = new  Root();
+                            // adding each child node to HashMap key => value
+                            toon.setName(name);
+                            toon.setCategory(category);
+                            toon.setLatitude(latitude);
+                            toon.setLongitude(longitude);
+                            // adding contact to contact list
+                            myMap.put(latitude, toon);
+                            //service_details.add(toon);
+                        }else if(sessionCategory.compareTo("Both") == 0){
+                            name = obj.getString("name");
+                            category = obj.getString("category");
+                            latitude = obj.getDouble("latitude");
+                            longitude = obj.getDouble("longitude");
+
+                            Root toon = new  Root();
+                            // adding each child node to HashMap key => value
+                            toon.setName(name);
+                            toon.setCategory(category);
+                            toon.setLatitude(latitude);
+                            toon.setLongitude(longitude);
+                            // adding contact to contact list
+                            myMap.put(latitude, toon);
+                            //service_details.add(toon);
+                        }
+                    }
+
+                    Iterator it = myMap.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry)it.next();
+                        service_details.add((Root)pair.getValue());
+//                        it.remove(); // avoids a ConcurrentModificationException
                     }
 
                 } catch (final JSONException e) {
@@ -115,4 +149,9 @@ public class SearchActivity extends AppCompatActivity {
         //need to change this
         new SearchActivity.GetContacts().execute();
     }
+
+//    public double getLatti(){
+//        double latti = 0;
+//        if(ActivityCompat.checkSelfPermission())
+//    }
 }

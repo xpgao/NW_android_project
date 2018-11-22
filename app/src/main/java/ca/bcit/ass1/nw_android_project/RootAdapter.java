@@ -29,6 +29,8 @@ public class RootAdapter extends ArrayAdapter<Root> {
         // Lookup view for data population
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView category = (TextView) convertView.findViewById(R.id.category);
+        TextView lati = (TextView) convertView.findViewById(R.id.lati);
+        TextView longi = (TextView) convertView.findViewById(R.id.longi);
 
 
 //
@@ -37,6 +39,10 @@ public class RootAdapter extends ArrayAdapter<Root> {
         name.append(root.getName());
         category.setText("Category: ");
         category.append(root.getCategory());
+        lati.setText("Lati: ");
+        lati.append(Double.toString(root.getLatitude()));
+        longi.setText("Longi: ");
+        longi.append(Double.toString(root.getLongitude()));
 
         // Return the completed view to render on screen
         return convertView;
