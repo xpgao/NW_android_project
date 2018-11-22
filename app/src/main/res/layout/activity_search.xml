@@ -21,23 +21,24 @@
         android:textSize="20sp" />
 
     <ListView
+        android:id="@+id/center_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="casual"
         android:textColor="#ffffff"
         android:layout_weight="5"/>
 
-    <Button
-        android:id="@+id/btnChangeText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="#2a00ff"
-        android:padding="10dp"
-        android:text="Back"
-        android:gravity="center"
-        android:fontFamily="cursive"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:layout_weight="1"/>
+    <!--<Button-->
+        <!--android:id="@+id/btnChangeText"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:background="#2a00ff"-->
+        <!--android:padding="10dp"-->
+        <!--android:text="Back"-->
+        <!--android:gravity="center"-->
+        <!--android:fontFamily="cursive"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textStyle="bold"-->
+        <!--android:layout_weight="1"/>-->
 </LinearLayout>
