@@ -1,6 +1,12 @@
 package ca.bcit.ass1.nw_android_project;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +26,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SearchActivity extends AppCompatActivity {
-
-
+    static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
     static public String name;
     static public String category;
     static public double latitude;
@@ -76,6 +82,7 @@ public class SearchActivity extends AppCompatActivity {
                             toon.setLatitude(latitude);
                             toon.setLongitude(longitude);
                             // adding contact to contact list
+                            //double distance = findDistance(obj.getDouble("latitude"), longitude = obj.getDouble("longitude"), getLatti(), getLongi());
                             myMap.put(latitude, toon);
                             //service_details.add(toon);
                         }else if(sessionCategory.compareTo("Both") == 0){
@@ -101,6 +108,8 @@ public class SearchActivity extends AppCompatActivity {
                         Map.Entry pair = (Map.Entry)it.next();
                         service_details.add((Root)pair.getValue());
 //                        it.remove(); // avoids a ConcurrentModificationException
+                        System.out.println(getLatti());
+                        System.out.println(getLongi());
                     }
 
                 } catch (final JSONException e) {
@@ -142,6 +151,7 @@ public class SearchActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         service_details = new ArrayList<Root>();
@@ -150,8 +160,60 @@ public class SearchActivity extends AppCompatActivity {
         new SearchActivity.GetContacts().execute();
     }
 
-//    public double getLatti(){
-//        double latti = 0;
-//        if(ActivityCompat.checkSelfPermission())
-//    }
+    public double getLatti(){
+        double latti = 0;
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        }else{
+               Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+               if(location != null){
+                   latti = location.getLatitude();
+               }
+        }
+        return latti;
+    }
+    public double getLongi(){
+        double longi = 0;
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        } else{
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location != null){
+                longi = location.getLongitude();
+            }
+        }
+        return longi;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case REQUEST_LOCATION:
+                getLatti();
+                getLongi();
+                break;
+        }
+    }
+
+    public double findDistance(double centerX, double centerY, double ourX, double ourY){
+        double dX = centerX - ourX;
+        double dY = centerY - ourY;
+
+        dX = Math.abs(dX);
+        dY = Math.abs(dY);
+
+        dX = Math.pow(dX, 2);
+        dY = Math.pow(dY, 2);
+
+        return Math.sqrt(dX + dY);
+    }
 }
