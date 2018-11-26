@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.ProgressDialog;
@@ -158,6 +159,12 @@ public class SearchActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.center_details);
         //need to change this
         new SearchActivity.GetContacts().execute();
+
+        ActionBar actionBar= getSupportActionBar();
+        actionBar.setTitle("Search Activity");
+
+        getSupportActionBar().setTitle("Search Activity");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public double getLatti(){

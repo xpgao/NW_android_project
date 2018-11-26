@@ -20,8 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".crisiscenterActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".crisiscenterActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

@@ -48,7 +48,7 @@
         android:id="@+id/radioLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="30dp"
         android:text="Find services for:"
         android:gravity="center"
@@ -110,11 +110,11 @@
         android:id="@+id/goToCrisis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:onClick="crisis"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="65dp"
         android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffffff"
         android:gravity="center_horizontal"
-        android:onClick="crisis"
-        android:text="Talk or message with someone right now!"
-        android:textColor="#ffffff" />
+        android:text="Talk or message with someone right now!" />
 </LinearLayout>

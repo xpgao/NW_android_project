@@ -23,9 +23,9 @@
     <ListView
         android:id="@+id/center_details"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:layout_marginBottom="205dp"
+        android:layout_height="470dp"
+        android:layout_weight="5"
+        android:layout_marginBottom="100dp"
         android:fontFamily="casual"
         android:textColor="#ffffff" />
 
