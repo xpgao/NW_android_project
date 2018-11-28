@@ -72,7 +72,7 @@
             android:fontFamily="sans-serif-smallcaps"
             android:textColor="#ffffff"
             android:onClick="checkButton"
-            android:text="Mental health" />
+            android:text="Mental Health" />
 
         <RadioButton
             android:id="@+id/addictionServices"

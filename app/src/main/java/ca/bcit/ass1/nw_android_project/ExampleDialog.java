@@ -29,6 +29,7 @@ public class ExampleDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int i) {
                 if(id == 0){
+
                     String sessionCategory = "Mental Health";
                     Intent intent = new Intent(getActivity(), SearchActivity.class);
                     intent.putExtra("category", sessionCategory);
