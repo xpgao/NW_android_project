@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">NW_android_project</string>
+    <string name="app_name">New West Mental Health Services</string>
+    <string name="mainTitle">Find local centers or talk to someone now!</string>
+    <string name="imageDescription">Image about mental health</string>
 </resources>
